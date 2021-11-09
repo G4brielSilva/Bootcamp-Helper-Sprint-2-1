@@ -6,11 +6,16 @@ class WordtoCount {
     
     public str: string;
     constructor(w: string){
-        this.str = w.toLowerCase();
+        this.str = w;
     }
+
+    private normalizeString(wd: string): string{
+        return wd.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
+
     public countVowels(word: string): number {
         const letters: Array<string> = Array.from(word);
-        return letters.filter((letter: string) => 'aeiou'.includes(letter.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ""))).length;
+        return letters.filter((letter: string) => 'aeiou'.includes(this.normalizeString(letter))).length;
     }
 }
 
